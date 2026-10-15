@@ -1,11 +1,8 @@
 FROM alpine:3.21
 
-ENV XRAY_VER=26.10.10
-ENV XRAY_URL=https://github.com
-
 RUN apk add --no-cache ca-certificates curl unzip tzdata
 
-RUN curl -fsSL "${XRAY_URL}/v${XRAY_VER}/Xray-linux-64.zip" -o /tmp/xray.zip
+RUN curl -L https://github.com -o /tmp/xray.zip
 
 RUN unzip /tmp/xray.zip -d /tmp/xray-extracted
 
