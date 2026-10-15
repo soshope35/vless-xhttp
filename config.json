@@ -20,8 +20,8 @@
         "network": "xhttp",
         "security": "none",
         "xhttpSettings": {
-          "path": "/vless/mustapha35",
-          "mode": "stream-one"
+          "path": "/vless/xhttp/mustapha35",
+          "mode": "stream-up"
         }
       }
     }
