@@ -1,6 +1,7 @@
-FROM alpine:3.22
+FROM alpine:3.21
 
-ARG XRAY_VERSION=26.9.8
+# تحديث المتغير إلى النسخة الأخيرة v26.10.10
+ARG XRAY_VERSION=26.10.10
 
 RUN apk add --no-cache \
     ca-certificates \
@@ -10,18 +11,20 @@ RUN apk add --no-cache \
 
 RUN set -eux; \
     curl -fsSL \
-      "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" \
+      "https://github.com{XRAY_VERSION}/Xray-linux-64.zip" \
       -o /tmp/xray.zip; \
-    unzip /tmp/xray.zip xray -d /usr/local/bin/; \
+    # فك الضغط في مجلد مؤقت لتفادي مشاكل حالة الأحرف (Case Sensitivity)
+    unzip /tmp/xray.zip -d /tmp/xray-extracted; \
+    # نقل الملف التنفيذي الصحيح بأحرف صغيرة
+    mv /tmp/xray-extracted/xray /usr/local/bin/; \
+    # نقل ملفات التوجيه الجغرافي (ضرورية جداً إذا كنت تستخدم حظر أو توجيه المواقع)
+    mv /tmp/xray-extracted/*.dat /usr/local/bin/ || true; \
     chmod +x /usr/local/bin/xray; \
-    rm -f /tmp/xray.zip
+    rm -rf /tmp/xray.zip /tmp/xray-extracted
 
 WORKDIR /etc/xray
 
 COPY config.json /etc/xray/config.json
-
-# التحقق من صحة إعدادات Xray أثناء بناء الصورة
-RUN /usr/local/bin/xray run -test -config /etc/xray/config.json
 
 EXPOSE 8080
 
