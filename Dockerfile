@@ -1,15 +1,9 @@
 FROM alpine:3.21
 
-ARG XRAY_VERSION=26.10.10
-
-RUN apk add --no-cache \
-    ca-certificates \
-    curl \
-    unzip \
-    tzdata
+RUN apk add --no-cache ca-certificates curl unzip tzdata
 
 RUN set -eux; \
-    curl -fsSL "https://github.com{XRAY_VERSION}/Xray-linux-64.zip" -o /tmp/xray.zip; \
+    curl -fsSL "https://github.com" -o /tmp/xray.zip; \
     unzip /tmp/xray.zip -d /tmp/xray-extracted; \
     mv /tmp/xray-extracted/xray /usr/local/bin/; \
     mv /tmp/xray-extracted/*.dat /usr/local/bin/ || true; \
