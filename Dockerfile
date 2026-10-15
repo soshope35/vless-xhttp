@@ -1,8 +1,8 @@
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates curl unzip tzdata
+RUN apk add --no-cache ca-certificates wget unzip tzdata
 
-RUN curl -fsSL "https://github.com" -o /tmp/xray.zip
+RUN wget -O /tmp/xray.zip https://github.com
 
 RUN unzip /tmp/xray.zip -d /tmp/xray-extracted
 
