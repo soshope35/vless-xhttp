@@ -1,27 +1,20 @@
-FROM alpine:3.22
+FROM alpine:3.21
 
-ARG XRAY_VERSION=26.9.8
+RUN apk add --no-cache ca-certificates curl unzip tzdata
 
-RUN apk add --no-cache \
-    ca-certificates \
-    curl \
-    unzip \
-    tzdata
+RUN curl -L https://github.com -o /tmp/xray.zip
 
-RUN set -eux; \
-    curl -fsSL \
-      "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" \
-      -o /tmp/xray.zip; \
-    unzip /tmp/xray.zip xray -d /usr/local/bin/; \
-    chmod +x /usr/local/bin/xray; \
-    rm -f /tmp/xray.zip
+RUN unzip /tmp/xray.zip -d /tmp/xray-extracted
+
+RUN mv /tmp/xray-extracted/xray /usr/local/bin/xray
+
+RUN chmod +x /usr/local/bin/xray
+
+RUN rm -rf /tmp/xray.zip /tmp/xray-extracted
 
 WORKDIR /etc/xray
 
 COPY config.json /etc/xray/config.json
-
-# التحقق من صحة إعدادات Xray أثناء بناء الصورة
-RUN /usr/local/bin/xray run -test -config /etc/xray/config.json
 
 EXPOSE 8080
 
