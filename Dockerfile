@@ -2,7 +2,7 @@ FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates curl unzip tzdata
 
-RUN curl -fsSL https://github.com -o /tmp/xray.zip
+RUN curl -fsSL "https://github.com" -o /tmp/xray.zip
 
 RUN unzip /tmp/xray.zip -d /tmp/xray-extracted
 
