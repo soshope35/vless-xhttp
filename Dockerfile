@@ -1,16 +1,15 @@
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates wget unzip tzdata
+ARG XRAY_VERSION=26.10.10
+ARG XRAY_FILE=Xray-linux-64.zip
 
-RUN wget -O /tmp/xray.zip https://github.com
+RUN apk add --no-cache ca-certificates curl unzip tzdata
 
-RUN unzip /tmp/xray.zip -d /tmp/xray-extracted
-
-RUN mv /tmp/xray-extracted/xray /usr/local/bin/xray
-
-RUN chmod +x /usr/local/bin/xray
-
-RUN rm -rf /tmp/xray.zip /tmp/xray-extracted
+RUN set -eux; \
+    curl -fsSL "https://github.com{XRAY_VERSION}/${XRAY_FILE}" -o /tmp/xray.zip; \
+    unzip /tmp/xray.zip -d /tmp/xray-extracted; \
+    mv /tmp/xray-extracted/xray /usr/local/bin/xray; \
+    rm -rf /tmp/xray.zip /tmp/xray-extracted
 
 WORKDIR /etc/xray
 
