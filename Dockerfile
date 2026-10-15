@@ -1,6 +1,6 @@
 FROM alpine:3.22
 
-ARG XRAY_VERSION=26.9.8
+ARG XRAY_VERSION=26.3.27
 
 RUN apk add --no-cache \
     ca-certificates \
