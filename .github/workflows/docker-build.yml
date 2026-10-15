@@ -30,4 +30,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: winda2635/mustapha-vless-xhttp:latest
+          tags: soshope35/vless-xhttp:latest
