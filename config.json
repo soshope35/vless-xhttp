@@ -10,7 +10,7 @@
       "settings": {
         "clients": [
           {
-            "id": "2cd756a9-3651-4062-8f14-b4b438c6ae03",
+            "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
             "level": 0
           }
         ],
@@ -18,7 +18,20 @@
       },
       "streamSettings": {
         "network": "xhttp",
-        "security": "none",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "://youtube.com",
+          "xver": 0,
+          "serverNames": [
+    "www.youtube.com",
+    "m.youtube.com"
+  ],
+          "privateKey": "uG3yM8x9J1c2V3b4N5m6K7z8L9o0P1q2W3e4R5t6Y7u=",
+          "shortIds": [
+            "0123456789abcdef"
+          ]
+        },
         "xhttpSettings": {
           "path": "/vless/xhttp/mustapha35",
           "mode": "stream-up"
